@@ -13,7 +13,7 @@ function getClient(): SanityClient {
       projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "placeholder",
       dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || "production",
       apiVersion: "2024-01-01",
-      useCdn: false, // Set to false to bypass CDN cache and get instant updates
+      useCdn: true, // Use CDN to mitigate SocketError issues with Node.js fetch
       fetch: { cache: 'no-store' }
     });
   }
@@ -137,6 +137,28 @@ export async function getPortfolioItems(category?: string) {
     category,
     excerpt
   }`
+  );
+}
+
+export async function getPortfolioItem(slug: string) {
+  return getClient().fetch(
+    `*[_type == "portfolioItem" && slug.current == $slug][0] {
+    _id,
+    title,
+    slug,
+    image,
+    "imageUrl": image.asset->url,
+    category,
+    excerpt,
+    content[]{
+      ...,
+      _type == "localVideo" => {
+        ...,
+        "videoUrl": video.asset->url
+      }
+    }
+  }`,
+    { slug }
   );
 }
 

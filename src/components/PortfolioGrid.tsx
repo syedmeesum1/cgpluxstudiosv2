@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import Link from "next/link";
 import { urlFor } from "@/lib/sanity";
 import { gsap, ScrollTrigger } from "@/lib/gsap";
 
@@ -184,9 +185,10 @@ export default function PortfolioGrid({ items, layout = "carousel" }: PortfolioG
             className="flex overflow-x-auto snap-x snap-mandatory gap-6 lg:gap-8 pb-10 -mx-6 px-6 lg:-mx-12 lg:px-12 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
           >
             {displayItems.map((item, index) => (
-              <div
+              <Link
+                href={`/portfolio/${item.slug?.current || item._id}`}
                 key={item._id}
-                className="flex-none w-[85vw] md:w-[45vw] lg:w-[32vw] snap-center portfolio-card opacity-0 project-card magnetic relative aspect-[3/4] md:aspect-[4/5] rounded-2xl border border-white/[0.08] bg-black overflow-hidden group cursor-pointer"
+                className="flex-none w-[85vw] md:w-[45vw] lg:w-[32vw] snap-center portfolio-card opacity-0 project-card magnetic relative aspect-[3/4] md:aspect-[4/5] rounded-2xl border border-white/[0.08] bg-black overflow-hidden group cursor-pointer block"
               >
                 <div className="absolute inset-0 transition-transform duration-[1.5s] ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:scale-[1.05]">
                   {(item.imageUrl || item.image) ? (
@@ -213,16 +215,17 @@ export default function PortfolioGrid({ items, layout = "carousel" }: PortfolioG
                   )}
                 </div>
                 <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none shadow-[inset_0_0_80px_rgba(56,199,192,0.06)]" />
-              </div>
+              </Link>
             ))}
           </div>
         </div>
       ) : (
         <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {displayItems.map((item, index) => (
-            <div
+            <Link
+              href={`/portfolio/${item.slug?.current || item._id}`}
               key={item._id}
-              className="portfolio-card opacity-0 project-card magnetic relative aspect-[3/4] rounded-xl border border-white/[0.08] bg-black overflow-hidden group cursor-pointer"
+              className="portfolio-card opacity-0 project-card magnetic relative aspect-[3/4] rounded-xl border border-white/[0.08] bg-black overflow-hidden group cursor-pointer block"
             >
               <div className="absolute inset-0 transition-transform duration-[1.5s] ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:scale-[1.05]">
                 {(item.imageUrl || item.image) ? (
@@ -249,7 +252,7 @@ export default function PortfolioGrid({ items, layout = "carousel" }: PortfolioG
                 )}
               </div>
               <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none shadow-[inset_0_0_80px_rgba(56,199,192,0.06)]" />
-            </div>
+            </Link>
           ))}
         </div>
       )}

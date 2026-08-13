@@ -37,6 +37,17 @@ export const portfolioItem = defineType({
       rows: 3,
     }),
     defineField({
+      name: "content",
+      title: "Content",
+      type: "array",
+      of: [
+        { type: "block" },
+        { type: "image", options: { hotspot: true } },
+        { type: "youtube" },
+        { type: "localVideo" },
+      ],
+    }),
+    defineField({
       name: "order",
       title: "Sort Order",
       type: "number",

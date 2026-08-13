@@ -5,6 +5,8 @@ import { blogPost } from "./blogPost";
 import { portfolioItem } from "./portfolioItem";
 import { founderProfile } from "./founderProfile";
 import { client } from "./client";
+import { youtube } from "./youtube";
+import { localVideo } from "./localVideo";
 
 // Pages
 import { homePage } from "./homePage";
@@ -25,6 +27,8 @@ export const schemaTypes = [
   portfolioItem,
   founderProfile,
   client,
+  youtube,
+  localVideo,
   
   // Pages
   homePage,
